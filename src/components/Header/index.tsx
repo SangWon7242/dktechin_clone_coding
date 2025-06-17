@@ -13,26 +13,28 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white shadow-sm z-50 h-[80px]">
-      <div className="container mx-auto px-4 py-3 h-full flex justify-between items-center">
-        {/* 로고 */}
-        <Link href="/" className="flex items-center">
-          <Image
-            src="https://t1.kakaocdn.net/dkt_corp/service/logo_header.svg"
-            alt="DKTECHIN"
-            width={213}
-            height={22}
-            priority
-          />
-        </Link>
+    <header className="fixed inset-x-0 w-full bg-white shadow-sm z-50 h-[80px]">
+      <div className="container mx-auto h-full flex justify-between">
+        <div className="flex items-center">
+          {/* 로고 */}
+          <Link href="/">
+            <Image
+              src="https://t1.kakaocdn.net/dkt_corp/service/logo_header.svg"
+              alt="DKTECHIN"
+              width={213}
+              height={22}
+              priority
+            />
+          </Link>
+        </div>
 
         {/* 데스크탑 메뉴 */}
         <nav className="hidden md:block">
-          <ul className="flex items-center">
+          <ul className="flex h-full">
             <li className="mx-10">
               <Link
                 href="/business"
-                className="text-[#666] hover:text-[#1a1a1a] text-sm"
+                className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
               >
                 비즈니스
               </Link>
@@ -40,7 +42,7 @@ const Header = () => {
             <li className="mx-10">
               <Link
                 href="/case"
-                className="text-[#666] hover:text-[#1a1a1a] text-sm"
+                className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
               >
                 고객사례
               </Link>
@@ -48,7 +50,7 @@ const Header = () => {
             <li className="mx-10">
               <Link
                 href="/news"
-                className="text-[#666] hover:text-[#1a1a1a] text-sm"
+                className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
               >
                 뉴스
               </Link>
@@ -56,7 +58,7 @@ const Header = () => {
             <li className="mx-10">
               <Link
                 href="/data"
-                className="text-[#666] hover:text-[#1a1a1a] text-sm"
+                className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
               >
                 자료실
               </Link>
@@ -64,7 +66,7 @@ const Header = () => {
             <li className="mx-10">
               <Link
                 href="/company"
-                className="text-[#666] hover:text-[#1a1a1a] text-sm"
+                className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
               >
                 회사소개
               </Link>
@@ -72,7 +74,7 @@ const Header = () => {
             <li className="mx-10">
               <Link
                 href="/careers"
-                className="text-[#666] hover:text-[#1a1a1a] text-sm"
+                className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
               >
                 인재영입
               </Link>
