@@ -4,10 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import SearchModal from "../SearchModal/page";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,6 +21,10 @@ const Header = () => {
 
   const handleMouseLeave = () => {
     setActiveMenu(null);
+  };
+
+  const toggleSearchModal = () => {
+    setIsSearchModalOpen(!isSearchModalOpen);
   };
 
   // 메뉴 데이터 구조
@@ -114,132 +120,137 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed inset-x-0 w-full bg-white z-50 h-[80px]">
-      <div className="container mx-auto h-full flex justify-between">
-        <div className="flex items-center">
-          {/* 로고 */}
-          <Link href="/">
-            <Image
-              src="https://t1.kakaocdn.net/dkt_corp/service/logo_header.svg"
-              alt="DKTECHIN"
-              width={213}
-              height={22}
-              priority
-            />
-          </Link>
-        </div>
+    <>
+      <SearchModal isOpen={isSearchModalOpen} onClose={toggleSearchModal} />
+      <header className="top-bar fixed inset-x-0 w-full bg-white z-50 h-[80px]">
+        <div className="top-bar__inner mx-auto h-full flex justify-between max-w-[1920px] min-w-[1440] px-[128px]">
+          <div className="flex items-center">
+            {/* 로고 */}
+            <Link href="/">
+              <Image
+                src="https://t1.kakaocdn.net/dkt_corp/service/logo_header.svg"
+                alt="DKTECHIN"
+                width={213}
+                height={22}
+                priority
+              />
+            </Link>
+          </div>
 
-        {/* 데스크탑 메뉴 */}
-        <nav className="hidden md:block">
-          <ul className="flex h-full">
-            {Object.entries(menuData).map(([key, menu]) => (
-              <li
-                key={key}
-                className="mx-10 relative"
-                onMouseEnter={() => handleMouseEnter(key)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Link
-                  href={`/${key}`}
-                  className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
+          {/* 데스크탑 메뉴 */}
+          <nav className="hidden md:block">
+            <ul className="flex h-full">
+              {Object.entries(menuData).map(([key, menu]) => (
+                <li
+                  key={key}
+                  className="mx-10 relative"
+                  onMouseEnter={() => handleMouseEnter(key)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {menu.title}
-                </Link>
+                  <Link
+                    href={`/${key}`}
+                    className="text-[#666] hover:text-[#1a1a1a] text-sm h-full flex items-center"
+                  >
+                    {menu.title}
+                  </Link>
 
-                {activeMenu === key && key === "business" && (
-                  <div className="depth2-box absolute left-0 top-[80px] bg-white border border-[#f0f0f0] p-[32px] z-50">
-                    <div className="depth2-inner container mx-auto flex justify-between">
-                      {menuData.business.columns.map((column, colIdx) => (
-                        <div
-                          key={colIdx}
-                          className="depth2-inner-item px-4 min-h-[108px] relative"
-                        >
-                          {column.sections.map((section, secIdx) => (
-                            <div key={secIdx} className="mb-8">
-                              {section.category && (
-                                <strong className="block text-[#1a1a1a] mb-4">
-                                  {section.category}
-                                </strong>
-                              )}
-                              <ul>
-                                {section.items.map((item, itemIdx) => (
-                                  <li key={itemIdx}>
-                                    <Link
-                                      href={item.link}
-                                      className="text-[#666] block py-1 hover:text-[#1a1a1a] min-w-[140px] text-[13px]"
-                                    >
-                                      {item.name}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      ))}
+                  {activeMenu === key && key === "business" && (
+                    <div className="depth2-box absolute left-0 top-[80px] bg-white border border-[#f0f0f0] p-[32px] z-50">
+                      <div className="depth2-inner container mx-auto flex justify-between">
+                        {menuData.business.columns.map((column, colIdx) => (
+                          <div
+                            key={colIdx}
+                            className="depth2-inner-item px-4 min-h-[108px] relative"
+                          >
+                            {column.sections.map((section, secIdx) => (
+                              <div key={secIdx} className="mb-8">
+                                {section.category && (
+                                  <strong className="block text-[#1a1a1a] mb-4">
+                                    {section.category}
+                                  </strong>
+                                )}
+                                <ul>
+                                  {section.items.map((item, itemIdx) => (
+                                    <li key={itemIdx}>
+                                      <Link
+                                        href={item.link}
+                                        className="text-[#666] block py-1 hover:text-[#1a1a1a] min-w-[140px] text-[13px]"
+                                      >
+                                        {item.name}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        {/* 검색 버튼 */}
-        <div className="hidden md:flex items-center">
-          <button className="text-[#1a1a1a] mr-2">
-            <CiSearch className="cursor-pointer" size={24} />
-          </button>
-          <Link
-            href="#"
-            className="bg-[#1a1a1a] text-white px-[24px] rounded-[19px] text-[14px] font-medium h-[38px] flex items-center justify-center"
+          {/* 검색 버튼 */}
+          <div className="hidden md:flex items-center">
+            <button
+              className="search-button text-[#1a1a1a] mr-2"
+              onClick={toggleSearchModal}
+            >
+              <CiSearch className="cursor-pointer" size={24} />
+            </button>
+            <Link
+              href="#"
+              className="bg-[#1a1a1a] text-white px-[24px] rounded-[19px] text-[14px] font-medium h-[38px] flex items-center justify-center"
+            >
+              도입문의
+            </Link>
+          </div>
+
+          {/* 모바일 메뉴 버튼 */}
+          <button
+            className="md:hidden flex items-center"
+            onClick={toggleMenu}
+            aria-label="메뉴 열기"
           >
-            도입문의
-          </Link>
+            <CiSearch className="cursor-pointer" />
+          </button>
         </div>
 
-        {/* 모바일 메뉴 버튼 */}
-        <button
-          className="md:hidden flex items-center"
-          onClick={toggleMenu}
-          aria-label="메뉴 열기"
-        >
-          <CiSearch className="cursor-pointer" />
-        </button>
-      </div>
-
-      {/* 모바일 메뉴 */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg">
-          <div className="container mx-auto px-4 py-3">
-            <nav className="flex flex-col">
-              <ul className="space-y-4">
-                {Object.entries(menuData).map(([key, menu]) => (
-                  <li key={key}>
+        {isMenuOpen && (
+          <div className="md:hidden bg-white shadow-lg">
+            <div className="container mx-auto px-4 py-3">
+              <nav className="flex flex-col">
+                <ul className="space-y-4">
+                  {Object.entries(menuData).map(([key, menu]) => (
+                    <li key={key}>
+                      <Link
+                        href={`/${key}`}
+                        className="text-gray-700 hover:text-blue-600 transition-colors py-2 block"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {menu.title}
+                      </Link>
+                    </li>
+                  ))}
+                  <li className="pt-4 border-t border-gray-200">
                     <Link
-                      href={`/${key}`}
-                      className="text-gray-700 hover:text-blue-600 transition-colors py-2 block"
+                      href="/contact"
+                      className="bg-black text-white px-4 py-1.5 rounded-full text-xs font-medium inline-block"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      {menu.title}
+                      문의하기
                     </Link>
                   </li>
-                ))}
-                <li className="pt-4 border-t border-gray-200">
-                  <Link
-                    href="/contact"
-                    className="bg-black text-white px-4 py-1.5 rounded-full text-xs font-medium inline-block"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    문의하기
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
-      )}
-    </header>
+        )}
+      </header>
+    </>
   );
 };
 
