@@ -7,7 +7,7 @@ import { CiSearch } from "react-icons/ci";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<string | null>("business");
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,7 +18,7 @@ const Header = () => {
   };
 
   const handleMouseLeave = () => {
-    // setActiveMenu(null);
+    setActiveMenu(null);
   };
 
   // 메뉴 데이터 구조
@@ -38,6 +38,7 @@ const Header = () => {
               items: [
                 { name: "카카오 i", link: "/business/kakaoi" },
                 { name: "카카오 i 오토", link: "/business/kakaoiauto" },
+                { name: "카카오 홈", link: "/business/kakaohome" },
               ],
             },
           ],
@@ -48,20 +49,26 @@ const Header = () => {
               category: "고객 소통",
               items: [
                 {
-                  name: "카카오 i 커넥트 플레이스",
-                  link: "/business/connect-place",
+                  name: "카카오 i 커넥트 올웨이즈",
+                  link: "/business/kakaoconnectallways",
                 },
                 {
                   name: "카카오 i 커넥트 센터",
-                  link: "/business/connect-center",
+                  link: "/business/kakaoconnectcenter",
+                },
+                {
+                  name: "카카오 i 커넥트 메시지",
+                  link: "/business/kakaoconnectmsg",
                 },
               ],
             },
             {
               category: "AI 챗봇",
               items: [
-                { name: "카카오 i 커넥트 톡", link: "/business/connect-talk" },
-                { name: "스마트 민원행정", link: "/business/smart-minwon" },
+                { name: "카카오 i 커넥트 톡", link: "/business/connecttalk" },
+                { name: "스마트 민원행정", link: "/business/smartminwon" },
+                { name: "스마트 건설", link: "/business/smartbuilding" },
+                { name: "스마트 챗봇나우", link: "/business/smartchatbotnow" },
               ],
             },
           ],
@@ -73,6 +80,7 @@ const Header = () => {
               items: [
                 { name: "DX", link: "/business/dx" },
                 { name: "ITO", link: "/business/ito" },
+                { name: "UI UX 컨설팅", link: "/business/uiux" },
               ],
             },
             {
@@ -139,26 +147,26 @@ const Header = () => {
                 </Link>
 
                 {activeMenu === key && key === "business" && (
-                  <div className="depth2-box absolute left-0 top-[80px] bg-white border border-gray-200 p-[32px] z-50 w-full">
+                  <div className="depth2-box absolute left-0 top-[80px] bg-white border border-[#f0f0f0] p-[32px] z-50">
                     <div className="depth2-inner container mx-auto flex justify-between">
                       {menuData.business.columns.map((column, colIdx) => (
                         <div
                           key={colIdx}
-                          className="depth2-inner-item flex-1 px-4"
+                          className="depth2-inner-item px-4 min-h-[108px] relative"
                         >
                           {column.sections.map((section, secIdx) => (
                             <div key={secIdx} className="mb-8">
                               {section.category && (
-                                <strong className="block font-medium text-[#1a1a1a] mb-4">
+                                <strong className="block text-[#1a1a1a] mb-4">
                                   {section.category}
                                 </strong>
                               )}
                               <ul>
                                 {section.items.map((item, itemIdx) => (
-                                  <li key={itemIdx} className="mb-3">
+                                  <li key={itemIdx}>
                                     <Link
                                       href={item.link}
-                                      className="text-[#666] hover:text-[#1a1a1a] text-sm"
+                                      className="text-[#666] block py-1 hover:text-[#1a1a1a] min-w-[140px] text-[13px]"
                                     >
                                       {item.name}
                                     </Link>
@@ -172,40 +180,6 @@ const Header = () => {
                     </div>
                   </div>
                 )}
-
-                {activeMenu === key &&
-                  key !== "business" &&
-                  menu.submenu &&
-                  menu.submenu.length > 0 && (
-                    <div className="depth2-box absolute left-0 top-[80px] bg-white border border-gray-200 p-[32px] z-50">
-                      <div className="depth2-inner flex">
-                        {menu.submenu.map((section, idx) => (
-                          <div
-                            key={idx}
-                            className="depth2-inner-item flex-1 px-4 min-h-[108px]"
-                          >
-                            {section.category && (
-                              <strong className="font-medium text-[#1a1a1a] mb-4">
-                                {section.category}
-                              </strong>
-                            )}
-                            <ul>
-                              {section.items.map((item, itemIdx) => (
-                                <li key={itemIdx} className="mb-3">
-                                  <Link
-                                    href={item.link}
-                                    className="text-[#666] hover:text-[#1a1a1a] text-sm"
-                                  >
-                                    {item.name}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
               </li>
             ))}
           </ul>
