@@ -1,4 +1,5 @@
-import Image from "next/image";
+"use client";
+import "../app/globals.css";
 
 export default function Home() {
   return <div>Home</div>;

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
+import Header from "@/components/Header/page";
 
 export const metadata: Metadata = {
   title: "DKTECHIN",
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Header />
-        <main className="pt-16">{children}</main>
+        <main className="pt-[80px]">{children}</main>
       </body>
     </html>
   );
