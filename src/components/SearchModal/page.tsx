@@ -81,19 +81,19 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               </button>
               <Link
                 href="#"
-                className="bg-[#1a1a1a] text-white px-[24px] rounded-[19px] text-[14px] font-medium h-[38px] flex items-center justify-center"
+                className="mo-consult-button bg-[#1a1a1a] text-white px-[24px] rounded-[19px] text-[14px] font-medium h-[38px] flex items-center justify-center"
               >
                 도입문의
               </Link>
             </div>
           </div>
-          <div className="search-modal-body pt-[50px] pb-[70px] mx-auto w-[1040px]">
+          <div className="search-modal-body pt-[50px] pb-[70px] mx-auto w-[1040px] bg-white">
             <div className="search-form-box w-full">
               <form
                 onSubmit={(e) => e.preventDefault()}
-                className="flex gap-x-3 border-b border-[#000] p-4 items-center w-full"
+                className="search-form flex gap-x-3 border-b border-[#000] p-4 items-center w-full"
               >
-                <CiSearch className="cursor-pointer" size={60} />
+                <CiSearch className="search-icon cursor-pointer" size={60} />
                 <input
                   type="text"
                   placeholder="검색어를 입력해주세요."
@@ -102,12 +102,16 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               </form>
             </div>
             <div className="recommend-box w-full flex justify-center text-[#333] mt-[24px]">
-              <strong className="mr-10">추천 검색어</strong>
+              <strong className="recommend-search-title mr-10">
+                추천 검색어
+              </strong>
               <div className="tag-wrap">
                 <ul className="flex gap-x-5">
                   {tagWrapText.map((text, index) => (
                     <li key={index} className="hover:underline">
-                      <Link href="#">#{text}</Link>
+                      <Link href="#" className="tag-link-text">
+                        #{text}
+                      </Link>
                     </li>
                   ))}
                 </ul>

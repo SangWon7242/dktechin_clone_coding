@@ -52,4 +52,47 @@ html > body {
   &.active {
     transform: translateY(0);
   }
+
+  .search-modal-inner {
+    @media (width < 1439px) {
+      max-width: 100%;
+      min-width: auto;
+      padding-inline: 20px;
+    }
+  }
+
+  .mo-consult-button {
+    @media (width < 1439px) {
+      display: none;
+    }
+  }
+
+  .search-modal-body {
+    @media (width < 1439px) {
+      width: 100%;
+      padding: 16px 0 40px;
+    }
+
+    .search-icon {
+      @media (width < 1439px) {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    input {
+      @media (width < 1439px) {
+        font-size: 24px;
+        height: 36px;
+      }
+    }
+  }
+
+  .recommend-box {
+    @media (width < 1439px) {
+      .tag-link-text {
+        font-size: 12px;
+      }
+    }
+  }
 }
