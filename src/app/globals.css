@@ -1,19 +1,33 @@
 @import "tailwindcss";
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 
+:root {
+  --mobile-breakpoint: 1439px;
+  --tablet-breakpoint: 1023px;
+  --menu-breakpoint: 1493px;
+}
+
 html > body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+/* 모바일 미디어 쿼리 공통 스타일 */
+@media (width < var(--mobile-breakpoint)) {
+  .mobile-style {
+    max-width: 100%;
+    min-width: auto;
+  }
+}
+
 .top-bar__inner {
-  @media (width < 1439px) {
+  @media (width < var(--mobile-breakpoint)) {
     max-width: 100%;
     min-width: auto;
     padding-inline: 80px;
   }
 
   .top-bar__menu {
-    @media (width < 1439px) {
+    @media (width < var(--mobile-breakpoint)) {
       display: none;
     }
   }
@@ -34,13 +48,13 @@ html > body {
 .mobile-menu-button {
   display: none;
 
-  @media (width < 1493px) {
+  @media (width < var(--menu-breakpoint)) {
     display: block;
   }
 }
 
 .consult-button {
-  @media (width < 1023px) {
+  @media (width < var(--tablet-breakpoint)) {
     display: none;
   }
 }
@@ -53,43 +67,34 @@ html > body {
     transform: translateY(0);
   }
 
-  .search-modal-inner {
-    @media (width < 1439px) {
+  /* 모바일 스타일 그룹화 */
+  @media (width < var(--mobile-breakpoint)) {
+    .search-modal-inner {
       max-width: 100%;
       min-width: auto;
       padding-inline: 20px;
     }
-  }
 
-  .mo-consult-button {
-    @media (width < 1439px) {
+    .mo-consult-button {
       display: none;
     }
-  }
 
-  .search-modal-body {
-    @media (width < 1439px) {
+    .search-modal-body {
       width: 100%;
       padding: 16px 0 40px;
     }
 
     .search-icon {
-      @media (width < 1439px) {
-        width: 30px;
-        height: 30px;
-      }
+      width: 30px;
+      height: 30px;
     }
 
     input {
-      @media (width < 1439px) {
-        font-size: 24px;
-        height: 36px;
-      }
+      font-size: 24px;
+      height: 36px;
     }
-  }
 
-  .recommend-box {
-    @media (width < 1439px) {
+    .recommend-box {
       .tag-link-text {
         font-size: 12px;
       }
