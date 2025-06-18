@@ -120,8 +120,6 @@ const Header = () => {
     },
   };
 
-  const toggleMobileMenu = () => {};
-
   return (
     <>
       <SearchModal isOpen={isSearchModalOpen} onClose={toggleSearchModal} />

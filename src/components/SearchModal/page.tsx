@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
@@ -12,7 +12,35 @@ interface SearchModalProps {
 }
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
-  if (!isOpen) return null;
+  const modalContentRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(isOpen);
+
+  useEffect(() => {
+    if (isOpen) {
+      // 모달이 열릴 때는 먼저 보이게 설정
+      setIsVisible(true);
+
+      // 약간의 지연 후 active 클래스 추가
+      setTimeout(() => {
+        if (modalContentRef.current) {
+          modalContentRef.current.classList.add("active");
+        }
+      }, 400);
+    } else {
+      // 모달이 닫힐 때는 먼저 active 클래스 제거
+      if (modalContentRef.current) {
+        modalContentRef.current.classList.remove("active");
+      }
+
+      // 트랜지션 시간(0.4초) 후에 모달을 DOM에서 제거
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 400); // CSS에 설정된 트랜지션 시간과 일치시킴
+    }
+  }, [isOpen]);
+
+  // 모달이 보이지 않을 때는 렌더링하지 않음
+  if (!isVisible) return null;
 
   const tagWrapText = [
     "카카오워크",
@@ -26,10 +54,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   return (
     <div className="search-modal-box fixed inset-0 bg-[rgba(0,0,0,0.5)] bg-opacity-50 z-1000">
       <div
-        className="search-modal-content bg-white w-full"
+        ref={modalContentRef}
+        className="search-modal-content"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="search-modal-inner bg-white max-w-[1920px] px-[128px] mx-auto">
+        <div className="search-modal-inner bg-white max-w-[1920px] px-[128px] mx-auto ">
           <div className="search-modal-header h-[80px] flex justify-between">
             <div className="search-modal-logo flex items-center">
               <Link href="/">
@@ -42,8 +71,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 />
               </Link>
             </div>
-            {/* 검색 버튼 */}
-            <div className="hidden md:flex items-center">
+            {/* 닫기 버튼 */}
+            <div className="flex items-center">
               <button
                 className="search-close-button text-[#1a1a1a] mr-2"
                 onClick={onClose}
