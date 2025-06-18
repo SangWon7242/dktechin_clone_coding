@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { RiMenu3Fill } from "react-icons/ri";
 import SearchModal from "../SearchModal/page";
 
 const Header = () => {
@@ -119,6 +120,8 @@ const Header = () => {
     },
   };
 
+  const toggleMobileMenu = () => {};
+
   return (
     <>
       <SearchModal isOpen={isSearchModalOpen} onClose={toggleSearchModal} />
@@ -126,7 +129,7 @@ const Header = () => {
         <div className="top-bar__inner mx-auto h-full flex justify-between max-w-[1920px] min-w-[1440] px-[128px]">
           <div className="flex items-center">
             {/* 로고 */}
-            <Link href="/">
+            <Link href="/" className="logo">
               <Image
                 src="https://t1.kakaocdn.net/dkt_corp/service/logo_header.svg"
                 alt="DKTECHIN"
@@ -138,7 +141,7 @@ const Header = () => {
           </div>
 
           {/* 데스크탑 메뉴 */}
-          <nav className="hidden md:block">
+          <nav className="top-bar__menu hidden">
             <ul className="flex h-full">
               {Object.entries(menuData).map(([key, menu]) => (
                 <li
@@ -194,29 +197,28 @@ const Header = () => {
           </nav>
 
           {/* 검색 버튼 */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center gap-x-3">
             <button
               className="search-button text-[#1a1a1a] mr-2"
               onClick={toggleSearchModal}
             >
               <CiSearch className="cursor-pointer" size={24} />
             </button>
+            {/* 모바일 메뉴 버튼 */}
+            <button
+              className="mobile-menu-button flex items-center"
+              onClick={toggleMenu}
+              aria-label="메뉴 열기"
+            >
+              <RiMenu3Fill className="cursor-pointer" size={24} />
+            </button>
             <Link
               href="#"
-              className="bg-[#1a1a1a] text-white px-[24px] rounded-[19px] text-[14px] font-medium h-[38px] flex items-center justify-center"
+              className="consult-button bg-[#1a1a1a] text-white px-[24px] rounded-[19px] text-[14px] font-medium h-[38px] flex items-center justify-center whitespace-nowrap"
             >
               도입문의
             </Link>
           </div>
-
-          {/* 모바일 메뉴 버튼 */}
-          <button
-            className="md:hidden flex items-center"
-            onClick={toggleMenu}
-            aria-label="메뉴 열기"
-          >
-            <CiSearch className="cursor-pointer" />
-          </button>
         </div>
 
         {isMenuOpen && (

@@ -5,6 +5,20 @@ html > body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+.top-bar__inner {
+  @media (width < 1439px) {
+    max-width: 100%;
+    min-width: auto;
+    padding-inline: 80px;
+  }
+
+  .top-bar__menu {
+    @media (width < 1439px) {
+      display: none;
+    }
+  }
+}
+
 .depth2-inner-item {
   &:not(:last-child)::after {
     content: "";
@@ -14,5 +28,19 @@ html > body {
     width: 1px;
     height: 100%;
     background-color: #f0f0f0;
+  }
+}
+
+.mobile-menu-button {
+  display: none;
+
+  @media (width < 1493px) {
+    display: block;
+  }
+}
+
+.consult-button {
+  @media (width < 1023px) {
+    display: none;
   }
 }
