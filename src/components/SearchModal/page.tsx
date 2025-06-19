@@ -47,7 +47,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     "카카오홈",
     "디지털전환",
     "음성AI",
-    "업무혁신",
     "AI챗봇",
   ];
 
@@ -102,14 +101,17 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               </form>
             </div>
             <div className="recommend-box w-full flex justify-center text-[#333] mt-[24px]">
-              <strong className="recommend-search-title mr-10">
+              <strong className="recommend-search-title mr-10 whitespace-nowrap">
                 추천 검색어
               </strong>
               <div className="tag-wrap">
                 <ul className="flex gap-x-5">
                   {tagWrapText.map((text, index) => (
                     <li key={index} className="hover:underline">
-                      <Link href="#" className="tag-link-text">
+                      <Link
+                        href="#"
+                        className="tag-link-text whitespace-nowrap"
+                      >
                         #{text}
                       </Link>
                     </li>

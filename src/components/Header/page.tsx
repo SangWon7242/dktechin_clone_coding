@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { RiMenu3Fill } from "react-icons/ri";
 import SearchModal from "../SearchModal/page";
+import { IoCloseOutline } from "react-icons/io5";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,6 +15,10 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   const handleMouseEnter = (menu: string) => {
@@ -139,7 +144,7 @@ const Header = () => {
           </div>
 
           {/* 데스크탑 메뉴 */}
-          <nav className="top-bar__menu hidden">
+          <nav className="top-bar__menu">
             <ul className="flex h-full">
               {Object.entries(menuData).map(([key, menu]) => (
                 <li
@@ -195,7 +200,7 @@ const Header = () => {
           </nav>
 
           {/* 검색 버튼 */}
-          <div className="hidden md:flex items-center gap-x-3">
+          <div className="flex items-center gap-x-3">
             <button
               className="search-button text-[#1a1a1a] mr-2"
               onClick={toggleSearchModal}
@@ -220,30 +225,44 @@ const Header = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden bg-white shadow-lg">
-            <div className="container mx-auto px-4 py-3">
-              <nav className="flex flex-col">
-                <ul className="space-y-4">
+          <div className="mobile-side-menu-wrap bg-white shadow-lg fixed inset-x-0 top-0 z-50 flex flex-col h-full">
+            <div className="mobile-side-menu__header h-[60px] pr-[12px] pl-[20px] flex-shrink-0">
+              <div className="inner h-full flex justify-between items-center">
+                <div className="search-modal-logo flex items-center">
+                  <Link href="/">
+                    <Image
+                      src="https://t1.kakaocdn.net/dkt_corp/service/logo_header.svg"
+                      alt="DKTECHIN"
+                      width={213}
+                      height={22}
+                      priority
+                    />
+                  </Link>
+                </div>
+                {/* 닫기 버튼 */}
+                <div className="flex items-center">
+                  <button
+                    className="search-close-button text-[#1a1a1a] mr-2"
+                    onClick={closeMenu}
+                  >
+                    <IoCloseOutline className="cursor-pointer" size={40} />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="mobile-side-menu__body flex-grow">
+              <nav className="mobile-side-menu">
+                <ul>
                   {Object.entries(menuData).map(([key, menu]) => (
                     <li key={key}>
                       <Link
                         href={`/${key}`}
-                        className="text-gray-700 hover:text-blue-600 transition-colors py-2 block"
-                        onClick={() => setIsMenuOpen(false)}
+                        className="flex h-[60px] justify-between items-center px-[20px] font-bold text-[#333]"
                       >
                         {menu.title}
                       </Link>
                     </li>
                   ))}
-                  <li className="pt-4 border-t border-gray-200">
-                    <Link
-                      href="/contact"
-                      className="bg-black text-white px-4 py-1.5 rounded-full text-xs font-medium inline-block"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      문의하기
-                    </Link>
-                  </li>
                 </ul>
               </nav>
             </div>
